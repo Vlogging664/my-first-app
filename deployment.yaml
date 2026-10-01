@@ -14,6 +14,8 @@ spec:
     spec:
       containers:
         - name: my-first-app
-          image: quay.io/rhdevelopers/my-first-app
+          #image: quay.io/rhdevelopers/my-first-app
+          image: my-first-app:1.0 
+          imagePullPolicy: IfNotPresent 
           ports:
-            - containerPort: 8080
+            - containerPort: 80
