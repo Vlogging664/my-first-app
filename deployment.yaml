@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-first-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-first-app
+  template:
+    metadata:
+      labels:
+        app: my-first-app
+    spec:
+      containers:
+        - name: my-first-app
+          image: quay.io/rhdevelopers/my-first-app
+          ports:
+            - containerPort: 8080
