@@ -1,21 +1,39 @@
-name: My First CI Pipeline
+name: Build and Publish Image
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: vlogging664/my-first-app
 
 jobs:
-  build:
-    name: Build Docker Image
+  build-and-push:
+    name: Build and Publish Docker Image
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: docker build -t my-first-app:ci .
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and publish image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/vlogging664/my-first-app:1.5
+            ghcr.io/vlogging664/my-first-app:${{ github.sha }}
