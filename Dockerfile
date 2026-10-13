@@ -8,7 +8,7 @@ RUN sed -i '/^[[:space:]]*user[[:space:]]/d' /etc/nginx/nginx.conf \
 
 # Use an unprivileged port for OpenShift.
 RUN sed -i 's/listen       80;/listen       8080;/' /etc/nginx/conf.d/default.conf
-RUN echo 'Hello from my Docker image v1.4!' > /usr/share/nginx/html/index.html
+RUN echo 'Hello from my Docker image v1.5!' > /usr/share/nginx/html/index.html
 
 EXPOSE 8080
 
