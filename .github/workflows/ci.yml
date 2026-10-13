@@ -44,6 +44,14 @@ jobs:
     needs: build-and-push
 
     steps:
+      - name: Install OpenShift CLI
+        uses: redhat-actions/openshift-tools-installer@v2
+        with:
+          oc: '4'
+
+      - name: Verify OpenShift CLI
+        run: oc version --client
+
       - name: Log in to OpenShift
         uses: redhat-actions/oc-login@v1
         with:
